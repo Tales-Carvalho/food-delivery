@@ -1,0 +1,95 @@
+<div class="container">
+    <div *ngIf="cashier.Calculated == false">
+        <h3 style="text-align: center;">Today's orders</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th width="15%">Client</th>
+                    <th width="20%">Time of order</th>
+                    <th width="50%">Details</th>
+                    <th width="15%">Confirm delivery</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders">
+                    <td>{{order.Client}}</td>
+                    <td>{{order.Date}}</td>
+                    <td>
+                        <button class="btn btn-info" data-toggle="collapse"
+                            [attr.data-target]="'#div-' + order._id">Expand / Hide</button>
+                        <ul [attr.id]="'div-' + order._id" class="collapse">
+                            <li *ngFor="let meal of order.Meals">
+                                {{meal.Quantity}}x Meal: <span
+                                    *ngFor="let food of meal.FoodList">{{food.Name}} </span>
+                            </li>
+                            <li *ngFor="let drink of order.Drinks">
+                                {{drink.Quantity}}x {{drink.Name}}
+                            </li>
+                            <li *ngFor="let dessert of order.Desserts">
+                                {{dessert.Quantity}}x {{dessert.Name}}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <span *ngIf="order.Delivered == true">Order delivered</span>
+                        <button *ngIf="order.Delivered == false" class="btn btn-info"
+                            (click)="confirmOrder(order)">Confirm</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="cashier.Calculated == true">
+        <h3 style="text-align: center;">Incomes and outcomes from {{cashier.Date.toDateString()}}</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Delivered</th>
+                    <th>Not delivered</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Orders</th>
+                    <td>{{cashier.OrdersDelivered}}</td>
+                    <td>{{cashier.Orders - cashier.OrdersDelivered}}</td>
+                    <td>{{cashier.Orders}}</td>
+                </tr>
+                <tr>
+                    <th>Cashier</th>
+                    <td>${{cashier.TotalDelivered}}</td>
+                    <td>${{cashier.Total - cashier.TotalDelivered}}</td>
+                    <td>${{cashier.Total}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4 style="text-align: center;">Ordered products</h4>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Item</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{cashier.Meals}}</td>
+                    <td>Meals</td>
+                </tr>
+                <tr *ngFor="let drink of cashier.Drinks">
+                    <td>{{drink.Quantity}}</td>
+                    <td>{{drink.Name}}</td>
+                </tr>
+                <tr *ngFor="let dessert of cashier.Desserts">
+                    <td>{{dessert.Quantity}}</td>
+                    <td>{{dessert.Name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="sticky-footer" *ngIf="cashier.Calculated == false" style="text-align: center;">
+    <button class="btn btn-info" (click)="closeBills()" style="margin: 20px;">Calculate daily incomes and outcomes</button>
+</div>

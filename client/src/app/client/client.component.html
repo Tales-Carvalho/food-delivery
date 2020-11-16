@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <div class="row" *ngIf="closed == false">
+        <div class="col-sm-5">
+            <h3 style="text-align: center;">Options</h3>
+            <h4>Daily menu</h4>
+            <button class="btn btn-info btn-options" data-toggle="collapse" data-target="#divLunch">+ Meal -
+                ${{meal.Price}}</button>
+            <div id="divLunch" class="collapse" style="background-color: #c0f1f8; border-radius: 5px; padding: 15px">
+                <div *ngFor="let food of meal.FoodList">
+                    <div class="form-check">
+                        <label class="form-check-label"><input type="checkbox" class="form-check-input"
+                                [(ngModel)]=food.Selected>{{food.Name}}</label>
+                    </div>
+                </div>
+                <button class="btn btn-info btn-options" (click)="addMeal()">Add to order</button>
+            </div>
+
+            <h4>Drinks</h4>
+            <div *ngFor="let drink of drinks">
+                <button class="btn btn-info btn-options" (click)="addDrink(drink)">+ {{drink.Name}} -
+                    ${{drink.Price}}</button>
+            </div>
+
+            <h4>Desserts</h4>
+            <div *ngFor="let dessert of desserts">
+                <button class="btn btn-info btn-options" (click)="addDessert(dessert)">+ {{dessert.Name}} -
+                    ${{dessert.Price}}</button>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <h3 style="text-align: center;">Order</h3>
+            <label>
+                <h4>Client name</h4>
+                <input type="text" class="form-control" name="name" [(ngModel)]="order.Client">
+            </label>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Quantity</th>
+                        <th>Item</th>
+                        <th>Unitary Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let meal of order.Meals">
+                        <td>{{meal.Quantity}}x</td>
+                        <td>Meal:
+                            <ul>
+                                <li *ngFor="let food of meal.FoodList">{{food.Name}}</li>
+                            </ul>
+                        </td>
+                        <td>${{meal.Price}}</td>
+                        <td>
+                            <button class="btn btn-info" (click)="addMeal(meal)">+1</button>
+                            <button class="btn btn-info" (click)="removeMeal(meal)">-1</button>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let drink of order.Drinks">
+                        <td>{{drink.Quantity}}x</td>
+                        <td>{{drink.Name}}</td>
+                        <td>${{drink.Price}}</td>
+                        <td>
+                            <button class="btn btn-info" (click)="addDrink(drink)">+1</button>
+                            <button class="btn btn-info" (click)="removeDrink(drink)">-1</button>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let dessert of order.Desserts">
+                        <td>{{dessert.Quantity}}x</td>
+                        <td>{{dessert.Name}}</td>
+                        <td>${{dessert.Price}}</td>
+                        <td>
+                            <button class="btn btn-info" (click)="addDessert(dessert)">+1</button>
+                            <button class="btn btn-info" (click)="removeDessert(dessert)">-1</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="closed == true">
+        <h3 style="text-align: center;">Unfortunatly the Sample Restaurant is closed today.</h3>
+        <h4 style="text-align: center;">Open at: Monday to Friday, from 12:00am to 11:59pm.</h4>
+    </div>
+</div>
+<div class="sticky-footer" *ngIf="closed == false">
+    <h3 style="text-align: center;">Sub-total: $ {{total}} <button class="btn btn-info" style="margin: 10px;"
+            (click)="sendOrder()">Send order</button></h3>
+</div>

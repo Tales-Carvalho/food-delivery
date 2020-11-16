@@ -1,0 +1,19 @@
+{
+	"Menus": [
+		{"FoodList": [{"Name": "Rice"}, {"Name": "Beans"}, {"Name": "Chicken"}, {"Name": "Omelette"}], "DayWeek": 1, "Price": 15},
+		{"FoodList": [{"Name": "Rice"}, {"Name": "Beans"}, {"Name": "Pork"}, {"Name": "Salad"}], "DayWeek": 2, "Price": 15},
+		{"FoodList": [{"Name": "Rice"}, {"Name": "Beans"}, {"Name": "Beef"}, {"Name": "Salad"}], "DayWeek": 3, "Price": 15},
+		{"FoodList": [{"Name": "Rice"}, {"Name": "Beans"}, {"Name": "Lasagna"}, {"Name": "Omelette"}], "DayWeek": 4, "Price": 15},
+		{"FoodList": [{"Name": "Rice"}, {"Name": "Beans"}, {"Name": "Strogonoff"}, {"Name": "Pancake"}], "DayWeek": 5, "Price": 15}
+	],
+	"Drinks": [
+		{"Name": "Coca-Cola", "Price": 4},
+		{"Name": "Water", "Price": 3},
+		{"Name": "Orange Juice", "Price": 5}
+	],
+	"Desserts": [
+		{"Name": "Chocolate Cake", "Price": 5},
+		{"Name": "Strawberry Pie", "Price": 4},
+		{"Name": "Pudding", "Price": 3}
+	]
+}
